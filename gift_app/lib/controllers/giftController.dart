@@ -1,35 +1,34 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:gift_app/models/data.dart';
 import 'package:gift_app/models/models.dart';
-import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:gift_app/services/giftService.dart';
+import 'package:uuid/uuid.dart';
+
+var uuid = Uuid();
 
 class GiftController {
-  final storage = Hive.box("storage");
-
-  var gifts = <User, List<GiftWish>>{};
+  final giftService = Get.find<GiftService>();
+  RxMap<User, List<GiftWish>> gifts;
 
   GiftController() : gifts = <User, List<GiftWish>>{}.obs {
-    gifts = storage.get('gifts') ?? {};
-    gifts[user_0] = [
-      GiftWish(id: UniqueKey(), subject: "blöö", content: "derp"),
-    ];
+    gifts.value = giftService.gifts;
   }
 
   void addGift(User user, String subject, String content) {
-    final gift = GiftWish(id: UniqueKey(), subject: subject, content: content);
+    final gift = GiftWish(uuid: uuid.v4(), subject: subject, content: content);
     if (gifts.containsKey(user)) {
       gifts[user]!.add(gift);
     } else {
-      gifts[user] = [gift];
+      gifts[user] = [gift].obs;
     }
-    storage.put("gifts", gifts);
+    gifts.refresh();
+    giftService.saveGifts(gifts);
   }
 
   void deleteGift(User user, GiftWish gift) {
     if (gifts.containsKey(user)) {
-      gifts[user] = gifts[user]!.where((g) => g.id != gift.id).toList();
-      storage.put("gifts", gifts);
+      gifts[user] = gifts[user]!.where((g) => g.uuid != gift.uuid).toList();
+      gifts.refresh();
+      giftService.saveGifts(gifts);
     }
   }
 }

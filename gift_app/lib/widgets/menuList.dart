@@ -13,12 +13,13 @@ class MenuList extends StatelessWidget {
     return Column(
       children: [
         Obx(() => Text(userController.currentUser.value!.name.fullName)),
-        ...userList.map(
+        ...(userList.map(
+          // take each item out of the list created by map (containing 3 ElevatedButtons), and insert them to the end of the children of the Column
           (user) => ElevatedButton(
             onPressed: () => userController.setCurrentUser(user),
             child: Text(user.name.fullName),
           ),
-        ),
+        )),
       ],
     );
   }
