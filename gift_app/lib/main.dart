@@ -6,6 +6,7 @@ import 'package:gift_app/pages/friendsScreen.dart';
 import 'package:gift_app/pages/giftScreen.dart';
 import 'package:gift_app/pages/homeScreen.dart';
 import 'package:get/get.dart';
+import 'package:gift_app/pages/listScreen.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
 import 'package:gift_app/services/giftService.dart';
 // import 'package:gift_app/services/userService.dart';
@@ -39,8 +40,9 @@ class MainApp extends StatelessWidget {
       getPages: [
         GetPage(name: "/", page: () => HomeScreen()),
         GetPage(name: "/addnew", page: () => AddGiftWishScreen()),
-        GetPage(name: "/gifts/:giftId", page: () => GiftScreen()),
+        //GetPage(name: "/gifts/:giftId", page: () => GiftScreen()),
         GetPage(name: "/friends", page: () => FriendsScreen()),
+        GetPage(name: "/friends/:id", page: () => ListScreen()),
       ],
       scrollBehavior: CustomScrollBehavior(),
     );

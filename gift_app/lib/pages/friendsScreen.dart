@@ -18,7 +18,9 @@ class FriendsScreen extends StatelessWidget {
         padding: EdgeInsets.all(15.0),
         child: Column(
           children: [
-            Text("Here you can see your friends"),
+            Text(
+              "Here you can see your friends. Press them to see their gift wish lists.",
+            ),
             Expanded(
               flex: 1,
               child: Obx(
@@ -30,6 +32,7 @@ class FriendsScreen extends StatelessWidget {
                         )
                         .map(
                           (user) => ListTile(
+                            onTap: () => Get.toNamed("/friends/${user.id}"),
                             leading: CircleAvatar(
                               child: SvgPicture.asset(user.avatarUrl),
                             ),

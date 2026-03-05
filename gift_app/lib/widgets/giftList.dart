@@ -33,14 +33,7 @@ class GiftList extends StatelessWidget {
         shrinkWrap: true,
         children: !gifts.containsKey(user)
             ? []
-            : gifts[user]!
-                  .map(
-                    (gift) => InkWell(
-                      onTap: () => Get.toNamed("/gifts/${gift.uuid}"),
-                      child: Gift(gift),
-                    ),
-                  )
-                  .toList(),
+            : gifts[user]!.map((gift) => Gift(gift)).toList(),
       ),
     );
   }

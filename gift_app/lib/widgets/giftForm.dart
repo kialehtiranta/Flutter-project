@@ -47,7 +47,6 @@ class FormWidget extends StatelessWidget {
       _clear();
       Get.back();
     }
-    debugPrint(_formKey.currentState?.value.toString());
   }
 
   @override

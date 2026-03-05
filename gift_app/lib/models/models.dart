@@ -30,22 +30,31 @@ class Name {
 }
 
 class User {
-  const User({required this.name, required this.avatarUrl});
+  const User({required this.id, required this.name, required this.avatarUrl});
+  final String id;
   final Name name;
   final String avatarUrl;
 
-  bool operator ==(Object other) =>
-      other is User && name.fullName == other.name.fullName;
+  @override
+  bool operator ==(Object other) => other is User && id == other.id;
 
-  int get hashCode => Object.hash(name.fullName.hashCode, avatarUrl.hashCode);
+  @override
+  int get hashCode =>
+      Object.hash(name.fullName.hashCode, avatarUrl.hashCode, id.hashCode);
 
   factory User.fromJson(Map json) {
     return User(
+      id: json["id"],
       name: Name(first: json['first'], last: json['last']),
       avatarUrl: json['avatarUrl'],
     );
   }
   Map<String, dynamic> toJson() {
-    return {'first': name.first, 'last': name.last, 'avatarUrl': avatarUrl};
+    return {
+      'first': name.first,
+      'last': name.last,
+      'avatarUrl': avatarUrl,
+      "id": id,
+    };
   }
 }
