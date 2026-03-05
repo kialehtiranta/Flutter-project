@@ -12,3 +12,5 @@ final User user_2 = User(
   name: const Name(first: 'Pelle', last: 'Peloton'),
   avatarUrl: 'assets/avatar3.svg',
 );
+
+final users = [user_0, user_1, user_2];

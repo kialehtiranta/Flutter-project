@@ -31,4 +31,15 @@ class GiftController {
       giftService.saveGifts(gifts);
     }
   }
+
+  GiftWish? getGiftById(String id) {
+    for (var giftList in gifts.values) {
+      for (var gift in giftList) {
+        if (gift.uuid == id) {
+          return gift;
+        }
+      }
+    }
+    return null;
+  }
 }

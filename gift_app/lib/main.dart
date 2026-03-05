@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gift_app/controllers/giftController.dart';
 import 'package:gift_app/controllers/userController.dart';
-// import 'package:gift_app/services/userService.dart';
-import 'package:gift_app/services/giftService.dart';
-import 'package:gift_app/widgets/giftForm.dart';
-import 'package:gift_app/widgets/giftList.dart';
-import 'package:gift_app/widgets/menuList.dart';
-import 'dart:ui';
+import 'package:gift_app/pages/addGiftWishScreen.dart';
+import 'package:gift_app/pages/friendsScreen.dart';
+import 'package:gift_app/pages/giftScreen.dart';
+import 'package:gift_app/pages/homeScreen.dart';
 import 'package:get/get.dart';
 import 'package:hive_ce_flutter/hive_flutter.dart';
+import 'package:gift_app/services/giftService.dart';
+// import 'package:gift_app/services/userService.dart';
 
-import 'models/data.dart';
+import 'dart:ui';
 
 class CustomScrollBehavior extends MaterialScrollBehavior {
   @override
@@ -32,46 +32,17 @@ Future<void> main() async {
 }
 
 class MainApp extends StatelessWidget {
-  final userController = Get.find<UserController>();
-  final giftController = Get.find<GiftController>();
-
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      initialRoute: "/",
+      getPages: [
+        GetPage(name: "/", page: () => HomeScreen()),
+        GetPage(name: "/addnew", page: () => AddGiftWishScreen()),
+        GetPage(name: "/gifts/:giftId", page: () => GiftScreen()),
+        GetPage(name: "/friends", page: () => FriendsScreen()),
+      ],
       scrollBehavior: CustomScrollBehavior(),
-      home: Scaffold(
-        appBar: AppBar(title: Text("MY GIFT WISHES")),
-        drawer: Drawer(child: MenuList()),
-        body: Container(
-          alignment: Alignment.topCenter,
-          width: 400,
-          margin: const EdgeInsets.all(30),
-          child: Column(
-            
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Obx(
-                () => Text(
-                  giftController.gifts[user_0]?.length.toString() ?? "0",
-                ),
-              ),
-              FormWidget(),
-              GiftList(user_0),
-              /*ElevatedButton(
-              onPressed: () {
-                showModalBottomSheet(
-                  context: context,
-                  builder: (_) =>
-                      Padding(padding: EdgeInsets.all(16), child: FormWidget()),
-                );
-              },
-              child: Text("Add"),
-            ),*/
-              //GiftList(userController.currentUser.value!),
-            ],
-          ),
-        ),
-      ),
     );
   }
 }
