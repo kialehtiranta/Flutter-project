@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:gift_app/models/data.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 
 import '../controllers/userController.dart';
 import '../widgets/screenwrapper.dart';
@@ -30,7 +31,7 @@ class FriendsScreen extends StatelessWidget {
                         .map(
                           (user) => ListTile(
                             leading: CircleAvatar(
-                              backgroundImage: AssetImage(user.avatarUrl),
+                              child: SvgPicture.asset(user.avatarUrl),
                             ),
                             title: Text(user.name.fullName),
                           ),

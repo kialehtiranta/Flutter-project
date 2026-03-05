@@ -55,6 +55,7 @@ class FormWidget extends StatelessWidget {
     return FormBuilder(
       key: _formKey,
       child: Column(
+        spacing: 20,
         children: [
           FormBuilderTextField(
             name: 'text1',
@@ -76,6 +77,7 @@ class FormWidget extends StatelessWidget {
             ),
           ),
           Row(
+            spacing: 20,
             children: [
               Padding(
                 padding: EdgeInsets.all(8.0),
